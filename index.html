@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css" />
+    <title>Document</title>
+    
+</head>
+<body>
+    <div id = "mainContainer">
+        <div id = "myMap">
+            <img src="NepalMap.jpeg" id="myImage">
+        </div>
+        <div class = "symbol" id ="redSymbol"></div>
+
+    </div>
+    
+   
+
+    
+    
+    
+    <script>
+
+var districtCoordinates=`{
+    "type": "FeatureCollection",
+    "name": "DistricCoordinates",
+    "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:ESRI::102306" } },
+    "features": [
+    { "type": "Feature", "properties": { "FID_1": 10, "id": 11.0, "objectid": 12.0, "district": "BHOJPUR", "zone": "KOSHI", "distname": "Bhojpur", "region": "Eastern", "new_dcode": 106.0, "dis_nepali": "भोजपुर", "province": "01", "pro_nepali": "प्रदेश १", "pro_txt": "Province 1" }, "geometry": { "type": "Point", "coordinates": [ 804271.780810280819423, 3010893.843053432647139 ] } },
+    { "type": "Feature", "properties": { "FID_1": 17, "id": 18.0, "objectid": 19.0, "district": "DHANKUTA", "zone": "KOSHI", "distname": "Dhankuta", "region": "Eastern", "new_dcode": 107.0, "dis_nepali": "धनकुटा", "province": "01", "pro_nepali": "प्रदेश १", "pro_txt": "Province 1" }, "geometry": { "type": "Point", "coordinates": [ 830923.620762888458557, 2990403.944349568337202 ] } },
+    { "type": "Feature", "properties": { "FID_1": 25, "id": 26.0, "objectid": 27.0, "district": "ILAM", "zone": "MECHI", "distname": "Ilam", "region": "Eastern", "new_dcode": 110.0, "dis_nepali": "इलाम", "province": "01", "pro_nepali": "प्रदेश १", "pro_txt": "Province 1" }, "geometry": { "type": "Point", "coordinates": [ 887997.065684765111655, 2979854.171080299653113 ] } },
+    { "type": "Feature", "properties": { "FID_1": 27, "id": 28.0, "objectid": 29.0, "district": "JHAPA", "zone": "MECHI", "distname": "Jhapa", "region": "Eastern", "new_dcode": 111.0, "dis_nepali": "झापा", "province": "01", "pro_nepali": "प्रदेश १", "pro_txt": "Province 1" }, "geometry": { "type": "Point", "coordinates": [ 890170.164200058788992, 2946985.566697767004371 ] } },
+    { "type": "Feature", "properties": { "FID_1": 36, "id": 37.0, "objectid": 38.0, "district": "KHOTANG", "zone": "SAGARMATHA", "distname": "Khotang", "region": "Eastern", "new_dcode": 105.0, "dis_nepali": "खोटाङ", "province": "01", "pro_nepali": "प्रदेश १", "pro_txt": "Province 1" }, "geometry": { "type": "Point", "coordinates": [ 776458.719992114813067, 3008726.9201565599069 ] } },
+    { "type": "Feature", "properties": { "FID_1": 42, "id": 43.0, "objectid": 44.0, "district": "MORANG", "zone": "KOSHI", "distname": "Morang", "region": "Eastern", "new_dcode": 112.0, "dis_nepali": "मोरङ", "province": "01", "pro_nepali": "प्रदेश १", "pro_txt": "Province 1" }, "geometry": { "type": "Point", "coordinates": [ 845883.65832434152253, 2949351.149117074441165 ] } },
+    { "type": "Feature", "properties": { "FID_1": 49, "id": 50.0, "objectid": 51.0, "district": "OKHALDHUNGA", "zone": "SAGARMATHA", "distname": "Okhaldhunga", "region": "Eastern", "new_dcode": 104.0, "dis_nepali": "ओखलढुंगा", "province": "01", "pro_nepali": "प्रदेश १", "pro_txt": "Province 1" }, "geometry": { "type": "Point", "coordinates": [ 739586.411028681090102, 3025872.434254956897348 ] } },
+    { "type": "Feature", "properties": { "FID_1": 51, "id": 52.0, "objectid": 53.0, "district": "PANCHTHAR", "zone": "MECHI", "distname": "Panchthar", "region": "Eastern", "new_dcode": 109.0, "dis_nepali": "पाँचथर", "province": "01", "pro_nepali": "प्रदेश १", "pro_txt": "Province 1" }, "geometry": { "type": "Point", "coordinates": [ 874688.740310236229561, 3005415.155524217523634 ] } },
+    { "type": "Feature", "properties": { "FID_1": 63, "id": 64.0, "objectid": 65.0, "district": "SANKHUWASABHA", "zone": "KOSHI", "distname": "Sankhuwasabha", "region": "Eastern", "new_dcode": 102.0, "dis_nepali": "संखुवासभा", "province": "01", "pro_nepali": "प्रदेश १", "pro_txt": "Province 1" }, "geometry": { "type": "Point", "coordinates": [ 823967.886157577624545, 3055813.003311436623335 ] } },
+    { "type": "Feature", "properties": { "FID_1": 69, "id": 70.0, "objectid": 71.0, "district": "SOLUKHUMBU", "zone": "SAGARMATHA", "distname": "Solukhumbu", "region": "Eastern", "new_dcode": 103.0, "dis_nepali": "सोलुखुम्बु", "province": "01", "pro_nepali": "प्रदेश १", "pro_txt": "Province 1" }, "geometry": { "type": "Point", "coordinates": [ 768535.262308659381233, 3068706.452915474772453 ] } },
+    { "type": "Feature", "properties": { "FID_1": 70, "id": 71.0, "objectid": 72.0, "district": "SUNSARI", "zone": "KOSHI", "distname": "Sunsari", "region": "Eastern", "new_dcode": 113.0, "dis_nepali": "सुनसरी", "province": "01", "pro_nepali": "प्रदेश १", "pro_txt": "Province 1" }, "geometry": { "type": "Point", "coordinates": [ 815872.220736767631024, 2952248.958692551590502 ] } },
+    { "type": "Feature", "properties": { "FID_1": 74, "id": 75.0, "objectid": 76.0, "district": "TAPLEJUNG", "zone": "MECHI", "distname": "Taplejung", "region": "Eastern", "new_dcode": 101.0, "dis_nepali": "ताप्लेजुङ", "province": "01", "pro_nepali": "प्रदेश १", "pro_txt": "Province 1" }, "geometry": { "type": "Point", "coordinates": [ 877668.397581191034988, 3057365.434264980256557 ] } },
+    { "type": "Feature", "properties": { "FID_1": 75, "id": 76.0, "objectid": 77.0, "district": "TERHATHUM", "zone": "KOSHI", "distname": "Terhathum", "region": "Eastern", "new_dcode": 108.0, "dis_nepali": "तेह्रथुम", "province": "01", "pro_nepali": "प्रदेश १", "pro_txt": "Province 1" }, "geometry": { "type": "Point", "coordinates": [ 852063.495306996977888, 3009127.622058058157563 ] } },
+    { "type": "Feature", "properties": { "FID_1": 76, "id": 77.0, "objectid": 78.0, "district": "UDAYAPUR", "zone": "SAGARMATHA", "distname": "Udayapur", "region": "Eastern", "new_dcode": 114.0, "dis_nepali": "उदयपुर", "province": "01", "pro_nepali": "प्रदेश १", "pro_txt": "Province 1" }, "geometry": { "type": "Point", "coordinates": [ 766629.907197491731495, 2979134.672310449182987 ] } },
+    { "type": "Feature", "properties": { "FID_1": 7, "id": 8.0, "objectid": 9.0, "district": "BARA", "zone": "NARAYANI", "distname": "Bara", "region": "Central", "new_dcode": 207.0, "dis_nepali": "बारा", "province": "02", "pro_nepali": "प्रदेश  २", "pro_txt": "Province 2" }, "geometry": { "type": "Point", "coordinates": [ 606360.915011349832639, 2999447.057350504212081 ] } },
+    { "type": "Feature", "properties": { "FID_1": 18, "id": 19.0, "objectid": 20.0, "district": "DHANUSHA", "zone": "JANAKPUR", "distname": "Dhanusa", "region": "Central", "new_dcode": 203.0, "dis_nepali": "धनुषा", "province": "02", "pro_nepali": "प्रदेश  २", "pro_txt": "Province 2" }, "geometry": { "type": "Point", "coordinates": [ 702385.356192823150195, 2969682.281124211382121 ] } },
+    { "type": "Feature", "properties": { "FID_1": 39, "id": 40.0, "objectid": 41.0, "district": "MAHOTTARI", "zone": "JANAKPUR", "distname": "Mahottari", "region": "Central", "new_dcode": 204.0, "dis_nepali": "महोत्तरी", "province": "02", "pro_nepali": "प्रदेश  २", "pro_txt": "Province 2" }, "geometry": { "type": "Point", "coordinates": [ 681028.702652176027186, 2974936.832638893742114 ] } },
+    { "type": "Feature", "properties": { "FID_1": 53, "id": 54.0, "objectid": 55.0, "district": "PARSA", "zone": "NARAYANI", "distname": "Parsa", "region": "Central", "new_dcode": 208.0, "dis_nepali": "पर्सा", "province": "02", "pro_nepali": "प्रदेश  २", "pro_txt": "Province 2" }, "geometry": { "type": "Point", "coordinates": [ 577475.508416722062975, 3013833.012162955943495 ] } },
+    { "type": "Feature", "properties": { "FID_1": 57, "id": 58.0, "objectid": 59.0, "district": "RAUTAHAT", "zone": "NARAYANI", "distname": "Rautahat", "region": "Central", "new_dcode": 206.0, "dis_nepali": "रौतहट", "province": "02", "pro_nepali": "प्रदेश  २", "pro_txt": "Province 2" }, "geometry": { "type": "Point", "coordinates": [ 629452.379866878967732, 2987875.429059321526438 ] } },
+    { "type": "Feature", "properties": { "FID_1": 64, "id": 65.0, "objectid": 66.0, "district": "SAPTARI", "zone": "SAGARMATHA", "distname": "Saptari", "region": "Eastern", "new_dcode": 201.0, "dis_nepali": "सप्तरी", "province": "02", "pro_nepali": "प्रदेश  २", "pro_txt": "Province 2" }, "geometry": { "type": "Point", "coordinates": [ 773771.716282784705982, 2945461.712714273948222 ] } },
+    { "type": "Feature", "properties": { "FID_1": 65, "id": 66.0, "objectid": 67.0, "district": "SARLAHI", "zone": "JANAKPUR", "distname": "Sarlahi", "region": "Central", "new_dcode": 205.0, "dis_nepali": "सर्लाही", "province": "02", "pro_nepali": "प्रदेश  २", "pro_txt": "Province 2" }, "geometry": { "type": "Point", "coordinates": [ 655572.763667345745489, 2986472.306266616564244 ] } },
+    { "type": "Feature", "properties": { "FID_1": 68, "id": 69.0, "objectid": 70.0, "district": "SIRAHA", "zone": "SAGARMATHA", "distname": "Siraha", "region": "Eastern", "new_dcode": 202.0, "dis_nepali": "सिराहा", "province": "02", "pro_nepali": "प्रदेश  २", "pro_txt": "Province 2" }, "geometry": { "type": "Point", "coordinates": [ 733238.280957319657318, 2961098.574933830182999 ] } },
+    { "type": "Feature", "properties": { "FID_1": 9, "id": 10.0, "objectid": 11.0, "district": "BHAKTAPUR", "zone": "BAGMATI", "distname": "Bhaktapur", "region": "Central", "new_dcode": 307.0, "dis_nepali": "भक्तपुर", "province": "03", "pro_nepali": "बाग्मती प्रदेश", "pro_txt": "Bagmati Province" }, "geometry": { "type": "Point", "coordinates": [ 642335.628584793419577, 3062963.304101414512843 ] } },
+    { "type": "Feature", "properties": { "FID_1": 11, "id": 12.0, "objectid": 13.0, "district": "CHITAWAN", "zone": "NARAYANI", "distname": "Chitawan", "region": "Central", "new_dcode": 313.0, "dis_nepali": "चितवन", "province": "03", "pro_nepali": "बाग्मती प्रदेश", "pro_txt": "Bagmati Province" }, "geometry": { "type": "Point", "coordinates": [ 543089.049148645368405, 3051933.691019250545651 ] } },
+    { "type": "Feature", "properties": { "FID_1": 16, "id": 17.0, "objectid": 18.0, "district": "DHADING", "zone": "BAGMATI", "distname": "Dhading", "region": "Central", "new_dcode": 304.0, "dis_nepali": "धादिङ", "province": "03", "pro_nepali": "बाग्मती प्रदेश", "pro_txt": "Bagmati Province" }, "geometry": { "type": "Point", "coordinates": [ 594662.445442757103592, 3093171.805701964534819 ] } },
+    { "type": "Feature", "properties": { "FID_1": 19, "id": 20.0, "objectid": 21.0, "district": "DOLAKHA", "zone": "JANAKPUR", "distname": "Dolakha", "region": "Central", "new_dcode": 301.0, "dis_nepali": "दोलखा", "province": "03", "pro_nepali": "बाग्मती प्रदेश", "pro_txt": "Bagmati Province" }, "geometry": { "type": "Point", "coordinates": [ 716887.647644453099929, 3076030.138826195150614 ] } },
+    { "type": "Feature", "properties": { "FID_1": 29, "id": 30.0, "objectid": 31.0, "district": "KABHREPALANCHOK", "zone": "BAGMATI", "distname": "Kavrepalanchok", "region": "Central", "new_dcode": 309.0, "dis_nepali": "काभ्रेपलान्चोक", "province": "03", "pro_nepali": "बाग्मती प्रदेश", "pro_txt": "Bagmati Province" }, "geometry": { "type": "Point", "coordinates": [ 660172.750045371009037, 3047402.952011075336486 ] } },
+    { "type": "Feature", "properties": { "FID_1": 35, "id": 36.0, "objectid": 37.0, "district": "KATHMANDU", "zone": "BAGMATI", "distname": "Kathmandu", "region": "Central", "new_dcode": 306.0, "dis_nepali": "काठमाडौँ", "province": "03", "pro_nepali": "बाग्मती प्रदेश", "pro_txt": "Bagmati Province" }, "geometry": { "type": "Point", "coordinates": [ 633052.305263971327804, 3068457.332883371505886 ] } },
+    { "type": "Feature", "properties": { "FID_1": 37, "id": 38.0, "objectid": 39.0, "district": "LALITPUR", "zone": "BAGMATI", "distname": "Lalitpur", "region": "Central", "new_dcode": 308.0, "dis_nepali": "ललितपुर", "province": "03", "pro_nepali": "बाग्मती प्रदेश", "pro_txt": "Bagmati Province" }, "geometry": { "type": "Point", "coordinates": [ 632824.568783793598413, 3047557.13467986183241 ] } },
+    { "type": "Feature", "properties": { "FID_1": 40, "id": 41.0, "objectid": 42.0, "district": "MAKAWANPUR", "zone": "NARAYANI", "distname": "Makwanpur", "region": "Central", "new_dcode": 312.0, "dis_nepali": "मकवानपुर", "province": "03", "pro_nepali": "बाग्मती प्रदेश", "pro_txt": "Bagmati Province" }, "geometry": { "type": "Point", "coordinates": [ 606893.013442850671709, 3039579.498623059131205 ] } },
+    { "type": "Feature", "properties": { "FID_1": 48, "id": 49.0, "objectid": 50.0, "district": "NUWAKOT", "zone": "BAGMATI", "distname": "Nuwakot", "region": "Central", "new_dcode": 305.0, "dis_nepali": "नुवाकोट", "province": "03", "pro_nepali": "बाग्मती प्रदेश", "pro_txt": "Bagmati Province" }, "geometry": { "type": "Point", "coordinates": [ 621806.665978229721077, 3089052.52568839956075 ] } },
+    { "type": "Feature", "properties": { "FID_1": 55, "id": 56.0, "objectid": 57.0, "district": "RAMECHHAP", "zone": "JANAKPUR", "distname": "Ramechhap", "region": "Central", "new_dcode": 310.0, "dis_nepali": "रामेछाप", "province": "03", "pro_nepali": "बाग्मती प्रदेश", "pro_txt": "Bagmati Province" }, "geometry": { "type": "Point", "coordinates": [ 715309.736139583634213, 3045843.188847118988633 ] } },
+    { "type": "Feature", "properties": { "FID_1": 56, "id": 57.0, "objectid": 58.0, "district": "RASUWA", "zone": "BAGMATI", "distname": "Rasuwa", "region": "Central", "new_dcode": 303.0, "dis_nepali": "रसुवा", "province": "03", "pro_nepali": "बाग्मती प्रदेश", "pro_txt": "Bagmati Province" }, "geometry": { "type": "Point", "coordinates": [ 639225.543970432248898, 3118967.91172163374722 ] } },
+    { "type": "Feature", "properties": { "FID_1": 66, "id": 67.0, "objectid": 68.0, "district": "SINDHULI", "zone": "JANAKPUR", "distname": "Sindhuli", "region": "Central", "new_dcode": 311.0, "dis_nepali": "सिन्धुली", "province": "03", "pro_nepali": "बाग्मती प्रदेश", "pro_txt": "Bagmati Province" }, "geometry": { "type": "Point", "coordinates": [ 692825.735241344780661, 3010873.276263012550771 ] } },
+    { "type": "Feature", "properties": { "FID_1": 67, "id": 68.0, "objectid": 69.0, "district": "SINDHUPALCHOK", "zone": "BAGMATI", "distname": "Sindhupalchok", "region": "Central", "new_dcode": 302.0, "dis_nepali": "सिन्धुपाल्चोक", "province": "03", "pro_nepali": "बाग्मती प्रदेश", "pro_txt": "Bagmati Province" }, "geometry": { "type": "Point", "coordinates": [ 671458.820293040713295, 3089631.699811117257923 ] } },
+    { "type": "Feature", "properties": { "FID_1": 2, "id": 3.0, "objectid": 4.0, "district": "BAGLUNG", "zone": "DHAWALAGIRI", "distname": "Baglung", "region": "Western", "new_dcode": 411.0, "dis_nepali": "बागलुङ", "province": "04", "pro_nepali": "गण्डकीप्रदेश", "pro_txt": "Gandaki Province" }, "geometry": { "type": "Point", "coordinates": [ 426759.825323785247747, 3136583.982309172861278 ] } },
+    { "type": "Feature", "properties": { "FID_1": 22, "id": 23.0, "objectid": 24.0, "district": "GORKHA", "zone": "GANDAKI", "distname": "Gorkha", "region": "Western", "new_dcode": 401.0, "dis_nepali": "गोर्खा", "province": "04", "pro_nepali": "गण्डकीप्रदेश", "pro_txt": "Gandaki Province" }, "geometry": { "type": "Point", "coordinates": [ 577663.76961714355275, 3133385.987833617720753 ] } },
+    { "type": "Feature", "properties": { "FID_1": 34, "id": 35.0, "objectid": 36.0, "district": "KASKI", "zone": "GANDAKI", "distname": "Kaski", "region": "Western", "new_dcode": 405.0, "dis_nepali": "कास्की", "province": "04", "pro_nepali": "गण्डकीप्रदेश", "pro_txt": "Gandaki Province" }, "geometry": { "type": "Point", "coordinates": [ 499951.812558197998442, 3137168.596156917978078 ] } },
+    { "type": "Feature", "properties": { "FID_1": 38, "id": 39.0, "objectid": 40.0, "district": "LAMJUNG", "zone": "GANDAKI", "distname": "Lamjung", "region": "Western", "new_dcode": 406.0, "dis_nepali": "लमजुङ", "province": "04", "pro_nepali": "गण्डकीप्रदेश", "pro_txt": "Gandaki Province" }, "geometry": { "type": "Point", "coordinates": [ 542385.044072098447941, 3129976.553015124518424 ] } },
+    { "type": "Feature", "properties": { "FID_1": 41, "id": 42.0, "objectid": 43.0, "district": "MANANG", "zone": "GANDAKI", "distname": "Manang", "region": "Western", "new_dcode": 402.0, "dis_nepali": "मनाङ", "province": "04", "pro_nepali": "गण्डकीप्रदेश", "pro_txt": "Gandaki Province" }, "geometry": { "type": "Point", "coordinates": [ 522157.076713220507372, 3172436.967848850414157 ] } },
+    { "type": "Feature", "properties": { "FID_1": 44, "id": 45.0, "objectid": 46.0, "district": "MUSTANG", "zone": "DHAWALAGIRI", "distname": "Mustang", "region": "Western", "new_dcode": 403.0, "dis_nepali": "मुस्तांग", "province": "04", "pro_nepali": "गण्डकीप्रदेश", "pro_txt": "Gandaki Province" }, "geometry": { "type": "Point", "coordinates": [ 486327.718862026929855, 3206582.374970958102494 ] } },
+    { "type": "Feature", "properties": { "FID_1": 45, "id": 46.0, "objectid": 47.0, "district": "MYAGDI", "zone": "DHAWALAGIRI", "distname": "Myagdi", "region": "Western", "new_dcode": 404.0, "dis_nepali": "म्याग्दी", "province": "04", "pro_nepali": "गण्डकीप्रदेश", "pro_txt": "Gandaki Province" }, "geometry": { "type": "Point", "coordinates": [ 447373.885457119322382, 3159262.731909634545445 ] } },
+    { "type": "Feature", "properties": { "FID_1": 46, "id": 47.0, "objectid": 48.0, "district": "NAWALPARASI EAST", "zone": "LUMBINI", "distname": "Nawalparasi East", "region": "Central", "new_dcode": 408.0, "dis_nepali": "नवलपरासी पूर्व", "province": "04", "pro_nepali": "गण्डकीप्रदेश", "pro_txt": "Gandaki Province" }, "geometry": { "type": "Point", "coordinates": [ 506326.025289350072853, 3063212.792909484822303 ] } },
+    { "type": "Feature", "properties": { "FID_1": 52, "id": 53.0, "objectid": 54.0, "district": "PARBAT", "zone": "DHAWALAGIRI", "distname": "Parbat", "region": "Western", "new_dcode": 410.0, "dis_nepali": "पर्बत", "province": "04", "pro_nepali": "गण्डकीप्रदेश", "pro_txt": "Gandaki Province" }, "geometry": { "type": "Point", "coordinates": [ 468682.96487518545473, 3121292.44576366757974 ] } },
+    { "type": "Feature", "properties": { "FID_1": 72, "id": 73.0, "objectid": 74.0, "district": "SYANGJA", "zone": "GANDAKI", "distname": "Syangja", "region": "Western", "new_dcode": 409.0, "dis_nepali": "स्याङ्गजा", "province": "04", "pro_nepali": "गण्डकीप्रदेश", "pro_txt": "Gandaki Province" }, "geometry": { "type": "Point", "coordinates": [ 480849.648224974225741, 3100199.675258062779903 ] } },
+    { "type": "Feature", "properties": { "FID_1": 73, "id": 74.0, "objectid": 75.0, "district": "TANAHU", "zone": "GANDAKI", "distname": "Tanahu", "region": "Western", "new_dcode": 407.0, "dis_nepali": "तनहु", "province": "04", "pro_nepali": "गण्डकीप्रदेश", "pro_txt": "Gandaki Province" }, "geometry": { "type": "Point", "coordinates": [ 524926.275935337645933, 3092928.164022190030664 ] } },
+    { "type": "Feature", "properties": { "FID_1": 1, "id": 2.0, "objectid": 3.0, "district": "ARGHAKHANCHI", "zone": "LUMBINI", "distname": "Arghakhanchi", "region": "Western", "new_dcode": 505.0, "dis_nepali": "अर्घाखाँची", "province": "05", "pro_nepali": "प्रदेश ५", "pro_txt": "Province 5" }, "geometry": { "type": "Point", "coordinates": [ 409571.755696757056285, 3088052.704848404508084 ] } },
+    { "type": "Feature", "properties": { "FID_1": 6, "id": 7.0, "objectid": 8.0, "district": "BANKE", "zone": "BHERI", "distname": "Banke", "region": "Mid Western", "new_dcode": 511.0, "dis_nepali": "बांके", "province": "05", "pro_nepali": "प्रदेश ५", "pro_txt": "Province 5" }, "geometry": { "type": "Point", "coordinates": [ 286177.001370231620967, 3109422.396330751944333 ] } },
+    { "type": "Feature", "properties": { "FID_1": 8, "id": 9.0, "objectid": 10.0, "district": "BARDIYA", "zone": "BHERI", "distname": "Bardiya", "region": "Mid Western", "new_dcode": 512.0, "dis_nepali": "बर्दिया", "province": "05", "pro_nepali": "प्रदेश ५", "pro_txt": "Province 5" }, "geometry": { "type": "Point", "coordinates": [ 245509.077116181055317, 3143103.589824801776558 ] } },
+    { "type": "Feature", "properties": { "FID_1": 14, "id": 15.0, "objectid": 16.0, "district": "DANG", "zone": "RAPTI", "distname": "Dang", "region": "Mid Western", "new_dcode": 510.0, "dis_nepali": "दाङ", "province": "05", "pro_nepali": "प्रदेश ५", "pro_txt": "Province 5" }, "geometry": { "type": "Point", "coordinates": [ 343036.872640781919472, 3095409.732977916486561 ] } },
+    { "type": "Feature", "properties": { "FID_1": 23, "id": 24.0, "objectid": 25.0, "district": "GULMI", "zone": "LUMBINI", "distname": "Gulmi", "region": "Western", "new_dcode": 504.0, "dis_nepali": "गुल्मी", "province": "05", "pro_nepali": "प्रदेश ५", "pro_txt": "Province 5" }, "geometry": { "type": "Point", "coordinates": [ 432119.862976041331422, 3108447.11181404767558 ] } },
+    { "type": "Feature", "properties": { "FID_1": 33, "id": 34.0, "objectid": 35.0, "district": "KAPILBASTU", "zone": "LUMBINI", "distname": "Kapilbastu", "region": "Western", "new_dcode": 509.0, "dis_nepali": "कपिलबस्तु", "province": "05", "pro_nepali": "प्रदेश ५", "pro_txt": "Province 5" }, "geometry": { "type": "Point", "coordinates": [ 399690.771290513628628, 3057019.92487457441166 ] } },
+    { "type": "Feature", "properties": { "FID_1": 47, "id": 48.0, "objectid": 49.0, "district": "NAWALPARASI WEST", "zone": "LUMBINI", "distname": "Nawalparasi West", "region": "Central", "new_dcode": 507.0, "dis_nepali": "नवलपरासी पश्चीम", "province": "05", "pro_nepali": "प्रदेश ५", "pro_txt": "Province 5" }, "geometry": { "type": "Point", "coordinates": [ 474400.592429519456346, 3045598.792976830620319 ] } },
+    { "type": "Feature", "properties": { "FID_1": 50, "id": 51.0, "objectid": 52.0, "district": "PALPA", "zone": "LUMBINI", "distname": "Palpa", "region": "Western", "new_dcode": 506.0, "dis_nepali": "पाल्पा", "province": "05", "pro_nepali": "प्रदेश ५", "pro_txt": "Province 5" }, "geometry": { "type": "Point", "coordinates": [ 463130.818156180263031, 3077679.36821045121178 ] } },
+    { "type": "Feature", "properties": { "FID_1": 54, "id": 55.0, "objectid": 56.0, "district": "PYUTHAN", "zone": "RAPTI", "distname": "Pyuthan", "region": "Mid Western", "new_dcode": 503.0, "dis_nepali": "प्यूठान", "province": "05", "pro_nepali": "प्रदेश ५", "pro_txt": "Province 5" }, "geometry": { "type": "Point", "coordinates": [ 388685.874691697477829, 3111153.102680704556406 ] } },
+    { "type": "Feature", "properties": { "FID_1": 58, "id": 59.0, "objectid": 60.0, "district": "ROLPA", "zone": "RAPTI", "distname": "Rolpa", "region": "Mid Western", "new_dcode": 502.0, "dis_nepali": "रोल्पा", "province": "05", "pro_nepali": "प्रदेश ५", "pro_txt": "Province 5" }, "geometry": { "type": "Point", "coordinates": [ 365692.827447636809666, 3136747.151367885060608 ] } },
+    { "type": "Feature", "properties": { "FID_1": 59, "id": 60.0, "objectid": 61.0, "district": "RUKUM EAST", "zone": "RAPTI", "distname": "Rukum East", "region": "Mid Western", "new_dcode": 501.0, "dis_nepali": "रुकुम पूर्व", "province": "05", "pro_nepali": "प्रदेश ५", "pro_txt": "Province 5" }, "geometry": { "type": "Point", "coordinates": [ 383979.324176112946589, 3173112.92757495958358 ] } },
+    { "type": "Feature", "properties": { "FID_1": 61, "id": 62.0, "objectid": 63.0, "district": "RUPANDEHI", "zone": "LUMBINI", "distname": "Rupandehi", "region": "Western", "new_dcode": 508.0, "dis_nepali": "रुपन्देही", "province": "05", "pro_nepali": "प्रदेश ५", "pro_txt": "Province 5" }, "geometry": { "type": "Point", "coordinates": [ 439929.061926456226502, 3051083.666033811867237 ] } },
+    { "type": "Feature", "properties": { "FID_1": 13, "id": 14.0, "objectid": 15.0, "district": "DAILEKH", "zone": "BHERI", "distname": "Dailekh", "region": "Mid Western", "new_dcode": 606.0, "dis_nepali": "देलेख", "province": "06", "pro_nepali": "कर्णाली प्रदेश", "pro_txt": "Karnali Province" }, "geometry": { "type": "Point", "coordinates": [ 273777.26560992852319, 3197728.167012283112854 ] } },
+    { "type": "Feature", "properties": { "FID_1": 20, "id": 21.0, "objectid": 22.0, "district": "DOLPA", "zone": "KARNALI", "distname": "Dolpa", "region": "Mid Western", "new_dcode": 601.0, "dis_nepali": "डोल्पा", "province": "06", "pro_nepali": "कर्णाली प्रदेश", "pro_txt": "Karnali Province" }, "geometry": { "type": "Point", "coordinates": [ 408023.253944365191273, 3227926.968115733936429 ] } },
+    { "type": "Feature", "properties": { "FID_1": 24, "id": 25.0, "objectid": 26.0, "district": "HUMLA", "zone": "KARNALI", "distname": "Humla", "region": "Mid Western", "new_dcode": 603.0, "dis_nepali": "हुम्ला", "province": "06", "pro_nepali": "कर्णाली प्रदेश", "pro_txt": "Karnali Province" }, "geometry": { "type": "Point", "coordinates": [ 295745.704489396710414, 3324965.878130477387458 ] } },
+    { "type": "Feature", "properties": { "FID_1": 26, "id": 27.0, "objectid": 28.0, "district": "JAJARKOT", "zone": "BHERI", "distname": "Jajarkot", "region": "Mid Western", "new_dcode": 607.0, "dis_nepali": "जाजरकोट", "province": "06", "pro_nepali": "कर्णाली प्रदेश", "pro_txt": "Karnali Province" }, "geometry": { "type": "Point", "coordinates": [ 321435.527764073922299, 3195118.565462335944176 ] } },
+    { "type": "Feature", "properties": { "FID_1": 28, "id": 29.0, "objectid": 30.0, "district": "JUMLA", "zone": "KARNALI", "distname": "Jumla", "region": "Mid Western", "new_dcode": 604.0, "dis_nepali": "जुम्ला", "province": "06", "pro_nepali": "कर्णाली प्रदेश", "pro_txt": "Karnali Province" }, "geometry": { "type": "Point", "coordinates": [ 326947.179354315216187, 3240093.6551992315799 ] } },
+    { "type": "Feature", "properties": { "FID_1": 31, "id": 32.0, "objectid": 33.0, "district": "KALIKOT", "zone": "KARNALI", "distname": "Kalikot", "region": "Mid Western", "new_dcode": 605.0, "dis_nepali": "कालिकोट", "province": "06", "pro_nepali": "कर्णाली प्रदेश", "pro_txt": "Karnali Province" }, "geometry": { "type": "Point", "coordinates": [ 281573.747356504318304, 3232372.113463983871043 ] } },
+    { "type": "Feature", "properties": { "FID_1": 43, "id": 44.0, "objectid": 45.0, "district": "MUGU", "zone": "KARNALI", "distname": "Mugu", "region": "Mid Western", "new_dcode": 602.0, "dis_nepali": "मुगु", "province": "06", "pro_nepali": "कर्णाली प्रदेश", "pro_txt": "Karnali Province" }, "geometry": { "type": "Point", "coordinates": [ 342370.658164983498864, 3278289.158437557052821 ] } },
+    { "type": "Feature", "properties": { "FID_1": 60, "id": 61.0, "objectid": 62.0, "district": "RUKUM WEST", "zone": "RAPTI", "distname": "Rukum West", "region": "Mid Western", "new_dcode": 608.0, "dis_nepali": "रुकुम पश्चीम", "province": "06", "pro_nepali": "कर्णाली प्रदेश", "pro_txt": "Karnali Province" }, "geometry": { "type": "Point", "coordinates": [ 349808.856308445974719, 3180682.673861011862755 ] } },
+    { "type": "Feature", "properties": { "FID_1": 62, "id": 63.0, "objectid": 64.0, "district": "SALYAN", "zone": "RAPTI", "distname": "Salyan", "region": "Mid Western", "new_dcode": 609.0, "dis_nepali": "सल्यान", "province": "06", "pro_nepali": "कर्णाली प्रदेश", "pro_txt": "Karnali Province" }, "geometry": { "type": "Point", "coordinates": [ 318292.073068167199381, 3143785.132813884411007 ] } },
+    { "type": "Feature", "properties": { "FID_1": 71, "id": 72.0, "objectid": 73.0, "district": "SURKHET", "zone": "BHERI", "distname": "Surkhet", "region": "Mid Western", "new_dcode": 610.0, "dis_nepali": "सुर्खेत", "province": "06", "pro_nepali": "कर्णाली प्रदेश", "pro_txt": "Karnali Province" }, "geometry": { "type": "Point", "coordinates": [ 264257.154074333840981, 3171289.027411173097789 ] } },
+    { "type": "Feature", "properties": { "FID_1": 0, "id": 1.0, "objectid": 2.0, "district": "ACHHAM", "zone": "SETI", "distname": "Achham", "region": "Far Western", "new_dcode": 707.0, "dis_nepali": "अछाम", "province": "07", "pro_nepali": "सुदुरपश्चिम प्रदेश", "pro_txt": "Sudurpaschim Province" }, "geometry": { "type": "Point", "coordinates": [ 237107.315342251909897, 3224147.284554369747639 ] } },
+    { "type": "Feature", "properties": { "FID_1": 3, "id": 4.0, "objectid": 5.0, "district": "BAITADI", "zone": "MAHAKALI", "distname": "Baitadi", "region": "Far Western", "new_dcode": 704.0, "dis_nepali": "बैतडी", "province": "07", "pro_nepali": "सुदुरपश्चिम प्रदेश", "pro_txt": "Sudurpaschim Province" }, "geometry": { "type": "Point", "coordinates": [ 167702.440505028469488, 3269816.929076303262264 ] } },
+    { "type": "Feature", "properties": { "FID_1": 4, "id": 5.0, "objectid": 6.0, "district": "BAJHANG", "zone": "SETI", "distname": "Bajhang", "region": "Far Western", "new_dcode": 702.0, "dis_nepali": "बझाङ", "province": "07", "pro_nepali": "सुदुरपश्चिम प्रदेश", "pro_txt": "Sudurpaschim Province" }, "geometry": { "type": "Point", "coordinates": [ 227141.402864674397279, 3290472.495777754113078 ] } },
+    { "type": "Feature", "properties": { "FID_1": 5, "id": 6.0, "objectid": 7.0, "district": "BAJURA", "zone": "SETI", "distname": "Bajura", "region": "Far Western", "new_dcode": 701.0, "dis_nepali": "बाजुरा", "province": "07", "pro_nepali": "सुदुरपश्चिम प्रदेश", "pro_txt": "Sudurpaschim Province" }, "geometry": { "type": "Point", "coordinates": [ 264021.226462895399891, 3273325.000434135086834 ] } },
+    { "type": "Feature", "properties": { "FID_1": 12, "id": 13.0, "objectid": 14.0, "district": "DADELDHURA", "zone": "MAHAKALI", "distname": "Dadeldhura", "region": "Far Western", "new_dcode": 705.0, "dis_nepali": "डडेलधुरा", "province": "07", "pro_nepali": "सुदुरपश्चिम प्रदेश", "pro_txt": "Sudurpaschim Province" }, "geometry": { "type": "Point", "coordinates": [ 158747.375928296358325, 3238496.556945503689349 ] } },
+    { "type": "Feature", "properties": { "FID_1": 15, "id": 16.0, "objectid": 17.0, "district": "DARCHULA", "zone": "MAHAKALI", "distname": "Darchula", "region": "Far Western", "new_dcode": 703.0, "dis_nepali": "दार्चुला", "province": "07", "pro_nepali": "सुदुरपश्चिम प्रदेश", "pro_txt": "Sudurpaschim Province" }, "geometry": { "type": "Point", "coordinates": [ 190369.817837218201021, 3318038.713279655668885 ] } },
+    { "type": "Feature", "properties": { "FID_1": 21, "id": 22.0, "objectid": 23.0, "district": "DOTI", "zone": "SETI", "distname": "Doti", "region": "Far Western", "new_dcode": 706.0, "dis_nepali": "डोटी", "province": "07", "pro_nepali": "सुदुरपश्चिम प्रदेश", "pro_txt": "Sudurpaschim Province" }, "geometry": { "type": "Point", "coordinates": [ 198054.412372658029199, 3231447.143544429447502 ] } },
+    { "type": "Feature", "properties": { "FID_1": 30, "id": 31.0, "objectid": 32.0, "district": "KAILALI", "zone": "SETI", "distname": "Kailali", "region": "Far Western", "new_dcode": 708.0, "dis_nepali": "कैलाली", "province": "07", "pro_nepali": "सुदुरपश्चिम प्रदेश", "pro_txt": "Sudurpaschim Province" }, "geometry": { "type": "Point", "coordinates": [ 195336.492691399093019, 3184024.628007451537997 ] } },
+    { "type": "Feature", "properties": { "FID_1": 32, "id": 33.0, "objectid": 34.0, "district": "KANCHANPUR", "zone": "MAHAKALI", "distname": "Kanchanpur", "region": "Far Western", "new_dcode": 709.0, "dis_nepali": "कंचनपुर", "province": "07", "pro_nepali": "सुदुरपश्चिम प्रदेश", "pro_txt": "Sudurpaschim Province" }, "geometry": { "type": "Point", "coordinates": [ 141243.702196988480864, 3198909.574335921555758 ] } }
+    ]
+    }`
+    
+
+        const divElement = document.getElementById('myMap');
+        const coordinates = divElement.getBoundingClientRect();
+
+        function transformCoordinates(oldX, oldY, oldXMin, oldXMax, oldYMin, oldYMax, newXMin, newXMax, newYMin, newYMax) {
+    var newX = ((oldX - oldXMin) * (newXMax - newXMin)) / (oldXMax - oldXMin) + newXMin;
+    var newY = ((oldY - oldYMin) * (-1) * (newYMax - newYMin)) / (oldYMax - oldYMin) + newYMax;
+    return { newX, newY };
+}
+
+
+
+function transformMultipleCoordinates(oldXArr, oldYArr, oldXMin, oldXMax, oldYMin, oldYMax, newXMin, newXMax, newYMin, newYMax) {
+    var transformedCoords = [];
+    for (var i = 0; i < oldXArr.length; i++) {
+        var transformed = transformCoordinates(oldXArr[i], oldYArr[i], oldXMin, oldXMax, oldYMin, oldYMax, newXMin, newXMax, newYMin, newYMax);
+        transformedCoords.push(transformed);
+    }
+    return transformedCoords;
+}
+
+// Coordinates of the first rectangle
+var oldXArr = []; // Add other x-coordinates here
+var oldYArr = []; // Add other y-coordinates here
+var oldXMin = 66777.272;
+var oldXMax = 959999.295;
+var oldYMin = 2868176.493; // Adjusted for the y-axis inversion
+var oldYMax = 3469034.648;
+
+// Coordinates of the second rectangle
+var newXMin = coordinates.left;
+var newXMax = coordinates.right;
+var newYMin = coordinates.top;
+var newYMax = coordinates.bottom; // Note: Since the y-axis is inverted, newYMax is the lower value
+
+// Transform coordinates from the first rectangle to the second rectangle
+var transformedCoords = transformMultipleCoordinates(oldXArr, oldYArr, oldXMin, oldXMax, oldYMin, oldYMax, newXMin, newXMax, newYMin, newYMax);
+
+
+
+const districtsXCoordinate = [];
+const districtsYCoordinate = [];
+const districtsName = [];
+
+var myDistrictsObject = JSON.parse(districtCoordinates);
+//var keysArray = Object.keys(myDistrictsObject);
+var myFeaturesDetails = myDistrictsObject['features']
+/* console.log(myFeaturesDetails[0]['geometry']['coordinates'][0]);
+console.log(myFeaturesDetails[0]['geometry']['coordinates'][1]); 
+console.log(myFeaturesDetails[0]['properties']['district']); */
+
+for (let i in myFeaturesDetails) {
+    districtsXCoordinate.push(myFeaturesDetails[i]['geometry']['coordinates'][0]);
+    districtsYCoordinate.push(myFeaturesDetails[i]['geometry']['coordinates'][1]);
+    districtsName.push(myFeaturesDetails[i]['properties']['district']);
+   
+}
+oldXArr.push(...districtsXCoordinate);
+oldYArr.push(...districtsYCoordinate);
+
+var transformedCoords = transformMultipleCoordinates(oldXArr, oldYArr, oldXMin, oldXMax, oldYMin, oldYMax, newXMin, newXMax, newYMin, newYMax);
+
+//pixel coordinates
+
+const pixelXCoordinate =[];
+const pixelYCoordinate = [];
+
+for (let i in transformedCoords) {
+    pixelXCoordinate.push(Math.floor(transformedCoords[i].newX));
+    pixelYCoordinate.push(Math.floor(transformedCoords[i].newY));
+    
+   
+}
+
+console.log()
+
+for (let i in pixelXCoordinate) {
+    var newDiv = document.createElement('div');
+    newDiv.classList.add('symbol');
+    var oldDiv = document.querySelector('#redSymbol');
+    newDiv.style.left = `${pixelXCoordinate[i]}px`;
+    newDiv.style.top = `${pixelYCoordinate[i]}px`;
+
+    oldDiv.appendChild(newDiv);
+
+    var newerParagraph = document.createElement('p'); // Create a new <p> element
+    newerParagraph.textContent = districtsName[i];
+     // Set its text content
+     newerParagraph.style.left = `${pixelXCoordinate[i]}px`;
+     newerParagraph.style.top = `${pixelYCoordinate[i]}px`;
+
+    oldDiv.appendChild(newerParagraph); // Append the <p> element with text content
+}
+
+var allPElements = document.querySelectorAll('p');
+for (let i = 0; i < allPElements.length; i++) {
+    allPElements[i].addEventListener('click', function() {
+        var searchText = encodeURIComponent(allPElements[i].textContent.trim());
+        var searchUrl = 'https://www.google.com/search?q=' + searchText;
+        window.open(searchUrl, '_blank');
+    });
+}
+
+
+
+
+
+
+
+    </script>
+</body>
+</html>
